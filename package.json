@@ -1,0 +1,28 @@
+{
+	"name": "startnext-cypress",
+	"version": "0.0.4",
+	"description": "Cypress + Startnext️",
+	"main": "index.js",
+	"private": true,
+	"scripts": {
+		"test": "cypress run"
+	},
+	"repository": {
+		"type": "git",
+		"url": "git+ssh://git@gitlab.tyclipso.net:startnext/cypress-hill.git"
+	},
+	"keywords": [
+		"cypress",
+		"cypress-io",
+		"startnext",
+		"gitlab"
+	],
+	"author": "joerg.jenke@startnext.com",
+	"homepage": "https://www.startnext.com",
+	"dependencies": {
+		"cypress": "^6.0.0",
+		"cypress-iframe": "^1.0.1",
+		"cypress-social-logins": "^1.8.0",
+		"cypress-file-upload": "^4.1.1,"
+	}
+}
