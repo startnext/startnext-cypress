@@ -22,7 +22,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       - name: Run super-Linter for Dockerfile
-        uses: github/super-linter@v3.13.0
+        uses: github/super-linter@v3.13.5
         env:
           VALIDATE_DOCKER: yes
           VALIDATE_DOCKER_HADOLINT: yes
