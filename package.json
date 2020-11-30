@@ -23,6 +23,6 @@
 		"cypress": "^6.0.0",
 		"cypress-iframe": "^1.0.1",
 		"cypress-social-logins": "^1.8.0",
-		"cypress-file-upload": "^4.1.1,",
+		"cypress-file-upload": "^4.1.1,"
 	}
 }
