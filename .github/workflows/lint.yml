@@ -1,0 +1,19 @@
+---
+
+name: Super-lint project
+
+on:
+  push: {}
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Run Super-Linter for everything
+        uses: github/super-linter@v3.13.0
+        env:
+          VALIDATE_ALL_CODEBASE: yes
+          DEFAULT_BRANCH: main
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
