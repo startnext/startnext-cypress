@@ -1,5 +1,5 @@
 # Contributors
 
-## Tyclipso GmbH
+## Startnext Crowdfunding GmbH
 
-Christoph Kepler <christoph.kepler@tyclipso.net>
+- Jörg Jenke <joerg.jenke@startnext.com>

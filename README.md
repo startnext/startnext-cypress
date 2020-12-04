@@ -8,7 +8,7 @@ The Dockerfile is licensed under MIT.
 
 ## Contributors
 
-See [CONTRIBUTORS](CONTRIBUTORS)
+See [CONTRIBUTORS](CONTRIBUTORS.md)
 
 ## Is it any good
 
