@@ -1,0 +1,16 @@
+{
+	"description": "Cypress.io end to end testing tool",
+	"license": "MIT",
+	"scripts": {
+		"cypress:open": "cypress open",
+		"cypress:report": "generate-mochawesome-report"
+	},
+	"devDependencies": {
+		"@cucumber/cucumber": "^7.0.0",
+		"cypress": "^6.6.0",
+		"cypress-file-upload": "^4.1.1",
+		"cypress-iframe": "^1.0.1",
+		"cypress-mochawesome-reporter": "^1.3.0",
+		"cypress-social-logins": "^1.11.2"
+	}
+}
