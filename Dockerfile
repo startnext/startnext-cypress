@@ -7,4 +7,5 @@ RUN npm i cypress-iframe@* \
 					cypress-file-upload@* \
 					cypress-mochawesome-reporter@* \
 					mochawesome@* \
-					mocha@*
+					mocha@* \
+					mochawesome-report-generator@*
