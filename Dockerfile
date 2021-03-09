@@ -4,7 +4,8 @@ LABEL author="Joerg Jenke <joerg.jenke@startnext.com>"
 
 COPY package.json package.json
 
-RUN su node --login -c  'cypress install' && npm i cypress-iframe@* \
+RUN npm i cypress-iframe@* \
 					cypress-social-logins@* \
 					cypress-file-upload@* \
-					cypress-mochawesome-reporter@*
+					cypress-mochawesome-reporter@* \
+					mochawesome@*
