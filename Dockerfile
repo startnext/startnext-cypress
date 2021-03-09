@@ -6,4 +6,5 @@ RUN npm i cypress-iframe@* \
 					cypress-social-logins@* \
 					cypress-file-upload@* \
 					cypress-mochawesome-reporter@* \
-					mochawesome@*
+					mochawesome@* \
+					mocha@*
