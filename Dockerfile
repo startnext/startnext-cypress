@@ -17,7 +17,7 @@ RUN npm i cypress-file-upload \
 # This image is not for Docker in Docker, but rather Docker socket binding.
 # See https://docs.gitlab.com/ee/ci/docker/using_docker_build.html#use-docker-socket-binding
 
-# Install Python
+# Install Python for fill_with_jinja.py
 RUN apt-get update -q && apt-get install python3-jinja2 python3-yaml sudo -yq
 
 # Install Docker Engine
@@ -25,13 +25,14 @@ RUN apt-get install \
          apt-transport-https \
          ca-certificates \
          curl \
+         gnupg \
          gnupg-agent \
+         lsb-release \
          software-properties-common -y && \
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add - && \
-    add-apt-repository \
-       "deb [arch=amd64] https://download.docker.com/linux/ubuntu \
-       $(lsb_release -cs) \
-       stable" && \
+    curl -fsSL https://download.docker.com/linux/debian/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg && \
+    echo \
+      "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/debian \
+      $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null && \
     apt-get update && \
     apt-get install docker-ce docker-ce-cli containerd.io -y
 
