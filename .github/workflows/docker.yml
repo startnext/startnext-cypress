@@ -15,26 +15,10 @@ env:
   IMAGE_NAME: startnext-cypress
 
 jobs:
-  lint:
-    runs-on: ubuntu-20.04
-
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v2
-      - name: Run super-Linter for Dockerfile
-        uses: github/super-linter@v3.13.5
-        env:
-          VALIDATE_DOCKER: yes
-          VALIDATE_DOCKER_HADOLINT: yes
-          FILTER_REGEX_INCLUDE: .*(Dockerfile).*
-          DEFAULT_BRANCH: main
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
   # Run tests.
   # See also https://docs.docker.com/docker-hub/builds/automated-testing/
 
   test:
-    needs: lint
     runs-on: ubuntu-20.04
 
     steps:
