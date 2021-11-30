@@ -2,7 +2,9 @@ FROM cypress/included:9.1.0
 
 LABEL author="Joerg Jenke <joerg.jenke@startnext.com>"
 
-WORKDIR /
+WORKDIR /usr/app
+
+COPY ./ /usr/app
 
 RUN npm i cypress-file-upload \
 					cypress-iframe \
