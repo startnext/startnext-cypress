@@ -12,7 +12,7 @@ on:
   pull_request:
 
 env:
-  IMAGE_NAME: startnext-cypress
+  REGISTRY: ghcr.io
 
 jobs:
   # Run tests.
@@ -47,49 +47,53 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
-  push:
+  build-push:
     # Ensure test job passes before pushing image.
     needs: lint
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
-
+    permissions:
+      contents: read
+      packages: write
     steps:
-      - uses: actions/checkout@v2
-
-      - name: Build image
-        run: docker build . --file Dockerfile --tag $IMAGE_NAME
-
-      - name: Log into GitHub Container Registry
-        run: echo "${{ secrets.CR_PAT }}" | docker login https://ghcr.io -u ${{ github.actor }} --password-stdin
-
-      - name: Push image to GitHub Container Registry
-        run: |
-          IMAGE_ID=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME
-          IMAGE_ID_LONG=ghcr.io/${{ github.repository_owner }}/$IMAGE_NAME/$IMAGE_NAME
-
-          # Change all uppercase to lowercase
-          IMAGE_ID=$(echo $IMAGE_ID | tr '[A-Z]' '[a-z]')
-          IMAGE_ID_LONG=$(echo $IMAGE_ID_LONG | tr '[A-Z]' '[a-z]')
-
-          # Strip git ref prefix from version
-          VERSION=$(echo "${{ github.ref }}" | sed -e 's,.*/\(.*\),\1,')
-
-          # Set Docker rolling tags bleeding/latest
-          [[ "${{ github.ref }}" == "refs/tags/"* ]] && VERSION_ROLLING=latest
-          [ "$VERSION" == "main" ] && VERSION_ROLLING=bleeding
-
-          # Set Commit Short SHA (first seven char) as VERSION for bleeding builds
-          [ "$VERSION" == "main" ] && VERSION=${GITHUB_SHA:0:7}
-
-          echo IMAGE_ID=$IMAGE_ID
-          echo VERSION=$VERSION
-          echo VERSION_ROLLING=$VERSION_ROLLING
-
-          docker tag $IMAGE_NAME $IMAGE_ID_LONG:$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION
-          docker tag $IMAGE_NAME $IMAGE_ID_LONG:$VERSION_ROLLING
-          docker tag $IMAGE_NAME $IMAGE_ID:$VERSION_ROLLING
-          docker push $IMAGE_ID_LONG:$VERSION
-          docker push $IMAGE_ID:$VERSION
-          docker push $IMAGE_ID_LONG:$VERSION_ROLLING
-          docker push $IMAGE_ID:$VERSION_ROLLING
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - name: Login into Container Registry ${{ env.REGISTRY }}
+        uses: docker/login-action@v2
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      - name: Extract metadata for Docker (tag)
+        id: meta_tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          tags: |
+            type=ref,event=tag
+      - name: Extract metadata for Docker (bleeding)
+        id: meta_bleeding
+        if: false == startsWith(github.ref, 'refs/tags/v')
+        uses: docker/metadata-action@v3
+        with:
+          images: ${{ env.REGISTRY }}/${{ github.repository }}
+          tags: |
+            type=edge
+            type=sha,prefix=
+      - name: Build and push Docker image (tag)
+        if: startsWith(github.ref, 'refs/tags/v')
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.meta_tag.outputs.tags }}
+          labels: ${{ steps.meta_tag.outputs.labels }}
+      - name: Build and push Docker image (bleeding)
+        if: false == startsWith(github.ref, 'refs/tags/v')
+        uses: docker/build-push-action@v2
+        with:
+          push: true
+          tags: ${{ steps.meta_bleeding.outputs.tags }}
+          labels: ${{ steps.meta_bleeding.outputs.labels }}
