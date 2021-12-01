@@ -21,8 +21,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
       - name: Run super-Linter for Dockerfile
-        uses: github/super-linter@v3.13.5
+        uses: github/super-linter@v4
         env:
           VALIDATE_DOCKER: yes
           VALIDATE_DOCKER_HADOLINT: yes
