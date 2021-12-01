@@ -15,9 +15,23 @@ env:
   IMAGE_NAME: startnext-cypress
 
 jobs:
+  # Run tests.
+  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
+  test:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'pull_request'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          fetch-depth: 1
+      - name: Test build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
   lint:
     runs-on: ubuntu-latest
-
+    if: github.event_name != 'pull_request'
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -31,29 +45,11 @@ jobs:
           FILTER_REGEX_INCLUDE: .*(Dockerfile).*
           DEFAULT_BRANCH: main
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-  # Run tests.
-  # See also https://docs.docker.com/docker-hub/builds/automated-testing/
-
-  test:
-    needs: lint
-    runs-on: ubuntu-latest
-    if: github.event_name == 'pull_request'
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 1
-      - name: Test build
-        uses: docker/build-push-action@v2
-        with:
-          push: false
-
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
   push:
     # Ensure test job passes before pushing image.
-    needs: test
-
+    needs: lint
     runs-on: ubuntu-latest
     if: github.event_name == 'push'
 
