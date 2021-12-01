@@ -38,18 +38,15 @@ jobs:
   test:
     needs: lint
     runs-on: ubuntu-latest
-
+    if: github.event_name == 'pull_request'
     steps:
       - uses: actions/checkout@v2
-
-      - name: Run tests
-        run: |
-          if [ -f docker-compose.test.yml ]; then
-            docker-compose --file docker-compose.test.yml build
-            docker-compose --file docker-compose.test.yml run sut
-          else
-            docker build . --file Dockerfile
-          fi
+        with:
+          fetch-depth: 1
+      - name: Test build
+        uses: docker/build-push-action@v2
+        with:
+          push: false
 
   # Push image to GitHub Packages.
   # See also https://docs.docker.com/docker-hub/builds/
