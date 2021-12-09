@@ -1,6 +1,15 @@
-# Startnext Cypress
+# Startnext Cypress [![Build Status](https://api.travis-ci.org/riemers/ansible-gitlab-runner.svg?branch=master)](https://travis-ci.org/riemers/ansible-gitlab-runner)
 
-This docker container is based on `cypress/included` and includes `cypress-iframe`, `cypress-social-logins` and `cypress-file-upload`.
+
+This docker container is based on [cypress/included](https://hub.docker.com/r/cypress/included) and includes 
+- `cypress-iframe`
+- `cypress-social-logins` 
+- `cypress-file-upload`
+- `cypress-mochawesome-reporter`
+- `cypress-visual-regression`
+- `mocha`
+- `mochawesome`
+- `mochawesome-report-generator`
 
 ## License
 

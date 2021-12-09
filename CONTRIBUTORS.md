@@ -1,6 +1,6 @@
 # Contributors
 
-## Startnext Crowdfunding GmbH
+## Startnext GmbH
 
 - Jörg Jenke <joerg.jenke@startnext.com>
 
