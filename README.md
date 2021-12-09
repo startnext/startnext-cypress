@@ -1,4 +1,4 @@
-# Startnext Cypress [![Build Status](https://api.travis-ci.org/riemers/ansible-gitlab-runner.svg?branch=master)](https://travis-ci.org/riemers/ansible-gitlab-runner)
+# Startnext Cypress ![Actions](https://github.com/startnext/startnext-cypress/actions/workflows/docker.yml/badge.svg)
 
 
 This docker container is based on [cypress/included](https://hub.docker.com/r/cypress/included) and includes 
