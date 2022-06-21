@@ -1,4 +1,4 @@
-# Startnext Cypress ![Actions](https://github.com/startnext/startnext-cypress/actions/workflows/docker.yml/badge.svg)
+# Startnext Cypress ![Actions](https://github.com/startnext/startnext-cypress/actions/workflows/docker.yml/badge.svg?branch=main)
 
 
 This docker container is based on [cypress/included](https://hub.docker.com/r/cypress/included) and includes 

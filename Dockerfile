@@ -1,4 +1,4 @@
-FROM cypress/included:9.1.1
+FROM cypress/included:9.7.0
 
 LABEL author="Joerg Jenke <joerg.jenke@startnext.com>"
 
