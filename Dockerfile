@@ -16,7 +16,7 @@ RUN npm i cypress-file-upload \
 					mochawesome-report-generator
 
 RUN set -o pipefail && \
-    su node -c 'mkdir -p /home/node/.config/fontconfig' && \
+		su node -c 'mkdir -p /home/node/.config/fontconfig' && \
 		echo '<?xml version="1.0"?> \
 			<!DOCTYPE fontconfig SYSTEM "urn:fontconfig:fonts.dtd"> \
 			<fontconfig> \
