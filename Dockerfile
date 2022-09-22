@@ -30,4 +30,5 @@ RUN su node -c 'mkdir -p /home/node/.config/fontconfig' && \
             <const>lcdnone</const> \
           </edit> \
         </match> \
-      </fontconfig>' > /home/node/.config/fontconfig/fonts.conf
+      </fontconfig>' > /home/node/.config/fontconfig/fonts.conf && \
+    echo 'cp /usr/app/* . -r' | su node -c 'tee /home/node/.bashrc'
