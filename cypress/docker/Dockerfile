@@ -1,7 +1,5 @@
 FROM cypress/included:9.7.0
 
-LABEL author="Joerg Jenke <joerg.jenke@startnext.com>"
-
 WORKDIR /usr/app
 
 COPY ./ /usr/app
